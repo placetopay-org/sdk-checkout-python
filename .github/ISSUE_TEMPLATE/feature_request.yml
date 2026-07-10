@@ -1,0 +1,44 @@
+name: ✨ Feature request
+description: Suggest an addition or improvement
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before requesting: check whether the feature exists in one of the
+        sibling SDKs (`checkout-dotnet`, `checkout-java`) or in the PHP
+        reference (`dnetix/redirection`). If yes, that's a parity ticket
+        and we'll prioritize it.
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What's the use case?
+      description: Describe the merchant or developer workflow this would enable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: Rough sketch of the method / field / option you'd like to see.
+      render: python
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you already tried, or existing SDK features that partially solve it.
+
+  - type: dropdown
+    id: parity
+    attributes:
+      label: Does this exist in another SDK?
+      options:
+        - Yes — in the PHP SDK (dnetix/redirection)
+        - Yes — in another language SDK (checkout-dotnet / checkout-java)
+        - No — this is net-new
+        - Not sure
+    validations:
+      required: true

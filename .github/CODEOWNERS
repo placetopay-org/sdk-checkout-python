@@ -1,0 +1,27 @@
+# Code owners — PlaceToPay Python SDK
+#
+# Syntax: <pattern> <owner> [<owner> ...]
+# Docs:   https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Replace the @placetopay/* team handles below with the actual GitHub team
+# handles for your organization before committing.
+
+# ── Default owner for anything not matched below ──
+*                                   @placetopay/sdk-team
+
+# ── Security-sensitive: require an extra pair of eyes ──
+# Anything touching authentication, signing or webhook verification.
+/src/placetopay/checkout/auth/      @placetopay/sdk-team @placetopay/security
+/src/placetopay/checkout/webhook*   @placetopay/sdk-team @placetopay/security
+/src/placetopay/checkout/http/      @placetopay/sdk-team @placetopay/security
+SECURITY.md                         @placetopay/security
+
+# ── Release-critical: version bumps + CI pipeline ──
+/.github/workflows/                 @placetopay/sdk-team @placetopay/devops
+pyproject.toml                      @placetopay/sdk-team
+CHANGELOG.md                        @placetopay/sdk-team
+
+# ── Cross-SDK contract ──
+# Changes here MUST be mirrored across Python / .NET / Java.
+# Ping all three maintainers.
+/docs/                              @placetopay/sdk-team

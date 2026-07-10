@@ -1,0 +1,79 @@
+name: 🐛 Bug report
+description: Something works differently than documented or than the other SDKs
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Before submitting, please check:
+
+        - [ ] You're on the latest `placetopay-checkout` release.
+        - [ ] The problem is reproducible — not a one-off network blip.
+        - [ ] You've read the relevant section of the README.
+
+        For **security** issues (signature bypass, credential leakage, PCI
+        concerns), do NOT open a public issue. Email security@placetopay.com
+        per SECURITY.md.
+
+  - type: input
+    id: sdk-version
+    attributes:
+      label: SDK version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.13.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - Sandbox
+        - Production
+        - Custom (baseUrl override)
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: The unexpected behavior. If you got an exception, paste the full type + message.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: What should the SDK have done?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: |
+        A small code snippet that reproduces the issue. Use PLACEHOLDER values
+        for credentials — never paste real login / secret_key.
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs (optional)
+      description: |
+        Redact anything sensitive. The SDK already masks PAN / CVV / tranKey /
+        nonce / tokens at DEBUG level, but double-check before pasting.
+      render: text

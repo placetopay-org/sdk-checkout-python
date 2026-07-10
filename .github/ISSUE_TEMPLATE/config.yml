@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Security vulnerability
+    url: https://github.com/placetopay/checkout-python/security/policy
+    about: |
+      Do NOT open a public issue for security issues. Follow the
+      responsible-disclosure process in SECURITY.md instead.
+  - name: ❓ Usage question
+    url: https://docs.placetopay.dev/en/checkout
+    about: Integration questions that aren't bugs — check the docs first.

@@ -1,0 +1,70 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+
+categories:
+  - title: '🔒 Security'
+    labels: [security]
+  - title: '💥 Breaking changes'
+    labels: [breaking]
+  - title: '🚀 Features'
+    labels: [feature, enhancement]
+  - title: '🐛 Bug fixes'
+    labels: [bug, fix]
+  - title: '📚 Documentation'
+    labels: [docs]
+  - title: '🧪 Tests & tooling'
+    labels: [test, ci, chore]
+  - title: '⬆️ Dependencies'
+    labels: [dependencies]
+    collapse-after: 5
+
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
+change-title-escapes: '\<*_&'
+
+version-resolver:
+  major:
+    labels: [breaking]
+  minor:
+    labels: [feature, enhancement]
+  patch:
+    labels: [bug, fix, security, docs, test, ci, chore, dependencies]
+  default: patch
+
+exclude-labels:
+  - skip-changelog
+
+autolabeler:
+  - label: breaking
+    title:
+      - '/^BREAKING:/i'
+      - '/^.+!:/'
+  - label: feature
+    title:
+      - '/^feat(\(.+\))?:/'
+  - label: bug
+    title:
+      - '/^fix(\(.+\))?:/'
+  - label: docs
+    title:
+      - '/^docs(\(.+\))?:/'
+  - label: test
+    title:
+      - '/^test(\(.+\))?:/'
+  - label: ci
+    title:
+      - '/^ci(\(.+\))?:/'
+  - label: chore
+    title:
+      - '/^chore(\(.+\))?:/'
+
+template: |
+  ## What's changed
+
+  $CHANGES
+
+  ## 📆 Supported versions
+
+  See the [support matrix in the README](../blob/main/README.md#-supported-versions)
+  for the Python versions covered by this release.
+
+  **Full changelog:** https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION

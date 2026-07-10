@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>PlaceToPay Checkout — Python example</title>
+    <style>
+      body { font: 14px/1.5 -apple-system, Segoe UI, sans-serif; max-width: 720px; margin: 3rem auto; padding: 0 1rem; color: #222; }
+      h1   { margin: 0 0 .5rem 0; }
+      .env { color: #666; font-size: 12px; }
+      form { margin-top: 1.5rem; display: grid; gap: .8rem; }
+      label { display: grid; gap: .25rem; }
+      input, button { padding: .5rem; font: inherit; }
+      button { cursor: pointer; background: #0d6efd; color: white; border: 0; padding: .7rem 1rem; border-radius: 4px; }
+      .section { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #eee; }
+      code { background: #f4f4f4; padding: 1px 4px; border-radius: 2px; }
+    </style>
+  </head>
+  <body>
+    <h1>PlaceToPay Checkout — Python example</h1>
+    <p class="env">Environment <code>{{ env }}</code> · Country <code>{{ country }}</code> · Login <code>{{ login[:8] }}…</code></p>
+
+    <form action="/create" method="post">
+      <h2>Create session</h2>
+      <label>Amount<input type="number" step="0.01" name="amount" value="50000" required /></label>
+      <label>Currency<input name="currency" value="COP" required /></label>
+      <label>Description<input name="description" value="Demo purchase" required /></label>
+      <button>Create & redirect to gateway →</button>
+    </form>
+
+    <div class="section">
+      <h2>Raw controls (advanced)</h2>
+      <ul>
+        <li><a href="/docs">OpenAPI / Swagger UI</a> — call every SDK method directly</li>
+        <li><code>GET /session/{id}</code> — query status</li>
+        <li><code>POST /session/{id}/cancel</code></li>
+        <li><code>POST /collect</code> — charge a stored token</li>
+        <li><code>POST /reverse</code> — reverse by internalReference</li>
+        <li><code>POST /invalidate</code> — revoke a token</li>
+        <li><code>POST /webhook</code> — verify a notification signature</li>
+      </ul>
+    </div>
+  </body>
+</html>

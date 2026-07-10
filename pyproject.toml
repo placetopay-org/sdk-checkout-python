@@ -1,0 +1,170 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "placetopay-checkout"
+version = "1.0.0"
+description = "Official Python SDK for the PlaceToPay Checkout (Web Checkout) payment gateway."
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [
+    { name = "PlaceToPay", email = "soporte@placetopay.com" },
+]
+keywords = [
+    "placetopay",
+    "checkout",
+    "payments",
+    "payment-gateway",
+    "sdk",
+    "colombia",
+    "ecuador",
+    "latam",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pydantic>=2.6,<3",
+    "requests>=2.31,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/placetopay/checkout-python"
+Repository = "https://github.com/placetopay/checkout-python"
+Documentation = "https://github.com/placetopay/checkout-python#readme"
+Issues = "https://github.com/placetopay/checkout-python/issues"
+Changelog = "https://github.com/placetopay/checkout-python/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "pytest-mock>=3.12",
+    "responses>=0.25",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "types-requests>=2.31",
+]
+
+# ─── Hatch build configuration ─────────────────────────────────────────────
+[tool.hatch.version]
+path = "src/placetopay/checkout/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/placetopay"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+    "/CHANGELOG.md",
+    "/pyproject.toml",
+]
+exclude = [
+    "/examples",
+    "/.github",
+    "/contract-tests",
+    "**/__pycache__",
+    "**/*.pyc",
+]
+
+# ─── Ruff ──────────────────────────────────────────────────────────────────
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+src = ["src", "tests"]
+extend-exclude = ["examples"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "SIM",  # flake8-simplify
+    "N",    # pep8-naming
+    "RUF",  # ruff-specific
+    "PL",   # pylint
+    "C4",   # flake8-comprehensions
+]
+ignore = [
+    "PLR0913",  # too many arguments
+    "PLR2004",  # magic value comparisons
+    "E501",     # line too long (handled by formatter)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["PLR2004", "S101", "N802"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# ─── mypy (strict) ─────────────────────────────────────────────────────────
+[tool.mypy]
+python_version = "3.13"
+strict = true
+plugins = ["pydantic.mypy"]
+files = ["src/placetopay"]
+mypy_path = "src"
+namespace_packages = true
+explicit_package_bases = true
+warn_unused_ignores = true
+disallow_any_generics = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = ["responses", "responses.*"]
+ignore_missing_imports = true
+
+# ─── pytest + coverage ─────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-ra",
+    "-m",
+    "not integration",
+    "--cov=placetopay.checkout",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "--cov-fail-under=85",
+]
+markers = [
+    "integration: marks a test as an integration test that talks to a real sandbox (deselected by default)",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/placetopay/checkout"]
+
+[tool.coverage.report]
+exclude_also = [
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "@overload",
+    "pragma: no cover",
+]
+show_missing = true
+skip_covered = false
