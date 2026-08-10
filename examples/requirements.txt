@@ -1,5 +1,5 @@
 fastapi>=0.115
-uvicorn[standard]>=0.32
+uvicorn[standard]>=0.52.1
 python-dotenv>=1.0
 jinja2>=3.1
 # The SDK itself — installed in editable mode from the repo root.
